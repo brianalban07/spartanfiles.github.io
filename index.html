@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category }} - Wistron Spartan Documents</title>
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Flash Message Styles */
+        .message {
+            margin: 10px auto;
+            text-align: center; /* Center-align messages */
+            padding: 10px 20px;
+            max-width: 80%; /* Prevent the message from becoming too wide */
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Success messages */
+        .success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Error messages */
+        .danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Information messages */
+        .info {
+            color: #0c5460;
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+        }
+
+        /* Warning messages */
+        .warning {
+            color: #856404;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+        }
+
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF; /* Overall white background matching index.html */
+        }
+
+        /* Header Section with Flexbox */
+        .header {
+        background-color: #307D8C; /* Consistent Deep Teal background */
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+        font-size: 36px;
+        font-weight: bold;
+        text-shadow: 0 0 10px #7BB1CD, 0 0 20px #7BB1CD, 0 0 30px #7BB1CD; /* Same glowing Light Blue effect */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px; /* Space between the icon and text */
+        margin-bottom: 30px; /* Add consistent spacing below the header */
+
+        }
+
+        /* Header Content Wrapper for Icon and Text */
+        .header-title {
+                display: flex; /* Flex container for icon and text */
+                align-items: center; /* Ensures icon and text are vertically aligned */
+                gap: 10px; /* Space between icon and text */
+        }
+
+        /* Adjusted Header Icon */
+        .header-icon {
+                font-size: 40px; /* Matches the text size */
+                color: white;
+        }
+
+        /* Logout Button Styling */
+        .logout-btn {
+         position: absolute;
+            top: 20px;
+                text-decoration: none;
+                right: 20px;
+                background-color: #E74C3C; /* Red */
+                color: white;
+                padding: 10px 20px; /* Appropriate button size */
+                border-radius: 5px;
+                font-size: 14px;
+                font-weight: bold;
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+                display: inline-flex; /* Aligns icon and text horizontally */
+                align-items: center; /* Centers icon and text vertically */
+                justify-content: center;
+        }
+
+        .logout-btn:hover {
+                background-color: #C0392B; /* Darker red on hover */
+        }
+
+        .logout-btn i {
+                margin-right: 5px; /* Space between icon and text in logout button */
+                font-size: 16px; /* Adjust icon size */
+        }
+
+
+        /* Back Link Styling */
+        .back-link {
+            display: block;
+            margin: 20px auto; /* Centered back link */
+            text-decoration: none;
+            color: #307D8C; /* Deep Teal for link consistency */
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 15px;
+            background-color: #EEEEEE; /* Cream background matching index */
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            width: fit-content; /* Shrinks to fit content */
+        }
+
+        .back-link:hover {
+            background-color: #8999A0; /* Hover Deep Teal like index */
+            color: white;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .upload-button {
+            background-color: #307D8C; /* Matching layout theme */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background-color: #8999A0; /* Same hover effect as back link */
+        }
+
+        /* Table Styling */
+        table {
+            width: 80%; /* Centered narrower table as upload area is smaller */
+            margin: auto;
+            border-collapse: collapse;
+            background-color: #FFFFFF; /* White table background */
+            border: 1px solid #7BB1CD; /* Consistent border color */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #7BB1CD; /* Consistent border */
+            padding: 15px;
+            text-align: center; /* Center-align all content */
+            vertical-align: middle; /* Vertically align content in cells */
+            box-sizing: border-box;
+        }
+
+        th {
+            background-color: #7BB1CD; /* Light Blue header consistent */
+            color: white;
+            font-size: 16px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #F9F9F9;
+        }
+
+        tr:hover {
+            background-color: #EEEEEE;
+        }
+
+        /* Centered Empty State Styling */
+        .empty-state {
+            text-align: center;
+            color: gray;
+            font-size: 16px;
+            padding: 20px;
+        }
+
+        /* Action Buttons Container */
+        .action-buttons {
+            display: flex;
+            gap: 10px; /* Space between buttons */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Delete Button */
+        .delete-button {
+            background-color: #E74C3C; /* Red for delete button */
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px; /* Oval shape */
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .delete-button:hover {
+            background-color: #C0392B; /* Darker red on hover */
+        }
+
+        /* Download Button */
+        .download-button {
+            background-color: #2ECC71; /* Green for download button */
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px; /* Oval shape */
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline from <a> */
+            display: inline-flex; /* Center-align content */
+            align-items: center;
+            justify-content: center;
+            gap: 5px; /* Space between icon and text */
+            transition: all 0.3s ease;
+        }
+
+        .download-button:hover {
+            background-color: #27AE60; /* Darker green on hover */
+        }
+
+        form {
+            display: inline; /* Form will now appear inline */
+            margin: 0; /* Remove extra margins around form */
+        }
+    </style>
+    <script>
+        /**
+         * Function to confirm deletion of a file.
+         */
+        function confirmDelete(fileName) {
+            return confirm(`Are you sure you want to delete the file "${fileName}"?`);
+        }
+    </script>
+</head>
+<body>
+    <!-- Flash Messages -->
+    <div class="message">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category != 'success' or request.endpoint != 'index' %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-title">
+            <i class="fas fa-folder-open header-icon"></i>
+            {{ category }} - Wistron Spartan Documents
+        </div>
+        <a href="/spartanfiles/logout" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+
+    <!-- Back Link -->
+    <a href="/spartanfiles/" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Departments
+    </a>
+
+    <!-- Upload Section -->
+    <div class="upload-section">
+        <form action="/spartanfiles/{{ department }}/{{ category }}" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <button type="submit" class="upload-button">
+                <i class="fas fa-upload"></i> Upload
+            </button>
+        </form>
+    </div>
+
+    <!-- Files Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+            <tr>
+                <td>{{ file }}</td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="/spartanfiles/{{ department }}/{{ category }}/{{ file }}" class="download-button">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                        <form action="/spartanfiles/{{ department }}/{{ category }}" method="POST" onsubmit="return confirmDelete('{{ file }}')">
+                            <input type="hidden" name="delete_file" value="{{ file }}">
+                            <button type="submit" class="delete-button">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            {% if files|length == 0 %}
+            <tr>
+                <td colspan="2" class="empty-state">No files found in this category.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+</html>
